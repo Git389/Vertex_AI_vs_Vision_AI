@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictions with Vision AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+        }
+        form {
+            margin: 20px auto;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .response-time {
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+        }
+        .uploaded-image {
+            margin: 20px auto;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .label-link {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .label-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Predictions with a Vision</h1>
+    </header>
+    <main>
+        <form method="POST" enctype="multipart/form-data">
+            <h2>Upload an Image for Classification</h2>
+            <input type="file" name="image" accept="image/*" required>
+            <img id="preview-image" class="uploaded-image" style="display:none;" alt="Uploaded Image Preview">
+            <button type="submit">Upload and Classify</button>
+        </form>
+
+        {% if labels %}
+        <h2>Detected Labels:</h2>
+        <div class="response-time">API Response Time: {{ response_time }} seconds</div>
+        <ul>
+            {% for label in labels %}
+            <li>
+                <a class="label-link" href="https://www.google.com/search?q={{ label.description }}" target="_blank">
+                    {{ label.description }} - Confidence: {{ (label.score * 100) | round(2) }}%
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </main>
+</body>
+</html>
