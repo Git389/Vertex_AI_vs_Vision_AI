@@ -27,7 +27,7 @@ def index():
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
             file.save(filepath)
 
-            # Start timer before API call
+           
             start_time = time.time()
 
             with open(filepath, "rb") as image_file:
@@ -37,8 +37,8 @@ def index():
             response = vision_client.label_detection(image=image)
             labels = response.label_annotations
 
-            # End timer after API response
-            response_time = round(time.time() - start_time, 3)  # Time in seconds
+          
+            response_time = round(time.time() - start_time, 3)  
 
             os.remove(filepath)
 
